@@ -32,8 +32,10 @@ export const fetchCategories = () => async (dispach) => {
             import.meta.env.VITE_APP_MEAL_URL + "/categories.php"
         );
         console.log(response);
+        dispach(setCategories(response.data));
     } catch(error){
-        dispach(setError(error));
+        // console.log(error.message);
+        dispach(setError(error.message));
     } finally{
         dispach(setLoading(false));
     }

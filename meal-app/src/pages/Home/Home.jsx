@@ -4,7 +4,6 @@ import { fetchCategories } from '../../reducers/mealSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.meal.isLoading);
     const categories = useSelector((state) => state.meal.categories);
 
 
