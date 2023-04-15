@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCategories } from '../../reducers/mealSlice';
 
 const Home = () => {
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.meal.isLoading);
+    const categories = useSelector((state) => state.meal.categories);
+
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
+
   return (
-    <div>Home</div>
+    <div>
+        {
+            categories.length > 0 &&
+            categories.map((category) => {
+                console.log(category);
+            })
+        }
+    </div>
   )
 }
 
