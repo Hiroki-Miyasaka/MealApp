@@ -17,7 +17,7 @@ const Home = () => {
         {
             categories.length > 0 &&
             categories.map((category) => {
-                // console.log(category);
+                console.log(category);
             })
         }
     </div>
