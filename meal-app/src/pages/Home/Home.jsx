@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../../reducers/mealSlice';
 import styled from 'styled-components';
@@ -35,10 +35,22 @@ const Layout = styled.div`
     text-align: center;
 `;
 
+const SearchSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+        padding: 0.5rem 3rem;
+        outline: none;
+        border-radius: 5px;
+    }
+`;
+
 const Home = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.meal.categories);
 
+    const [ meal, setMeal ] = useState("");
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -53,6 +65,13 @@ const Home = () => {
 
   return (
     <HomeContainer>
+        <TitleSection>Search Meal</TitleSection>
+        <SearchSection>
+            <form>
+                <label/>
+                <input type='text' placeholder='type meal name' onChange={(e) => setMeal(e.target.value)} value={meal}/>
+            </form>
+        </SearchSection>
 
         <TitleSection>Categories</TitleSection>
         <Layout>

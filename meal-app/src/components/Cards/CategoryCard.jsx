@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const CategoryCardContainer = styled.div`
     img{
         border-radius: 5px;
+        cursor: pointer;
     }
     p {
         text-align: left;
@@ -20,18 +21,27 @@ const CategoryCardContainer = styled.div`
 
 
 const CategoryCard = ({ idCategory, strCategory, strCategoryDescription, strCategoryThumb }) => {
-    
+    const [toggle, setToggle] = useState(false);
+
     const navigate = useNavigate();
     const handleRoute = (id) => {
         navigate(`/category/${idCategory}`);
     }
 
+    const handleToggle = () => {
+        setToggle(!toggle);
+    }
+ 
   return (
     <CategoryCardContainer>
-        <img src={strCategoryThumb} alt={strCategory} />
+        <img src={strCategoryThumb} alt={strCategory} onClick={handleToggle} />
         <h3>{strCategory}</h3>
-        <p>{strCategoryDescription}</p>
-        <button onClick={() => handleRoute(idCategory)}>See more</button>
+        {toggle && (
+            <div className='toggle'>
+                <p>{strCategoryDescription}</p>
+                <button onClick={() => handleRoute(idCategory)}>See more</button>
+            </div>
+        )}
     </CategoryCardContainer>
   )
 }
