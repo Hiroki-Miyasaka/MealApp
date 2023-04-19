@@ -34,13 +34,13 @@ const CategoryCard = ({ idCategory, strCategory, strCategoryDescription, strCate
  
   return (
     <CategoryCardContainer>
-        <img src={strCategoryThumb} alt={strCategory} onClick={handleToggle} />
+        <img src={strCategoryThumb} alt={strCategory + "-image"} onClick={handleToggle} />
         <h3>{strCategory}</h3>
         {toggle && (
-            <div className='toggle'>
+            <>
                 <p>{strCategoryDescription}</p>
                 <button onClick={() => handleRoute(idCategory)}>See more</button>
-            </div>
+            </>
         )}
     </CategoryCardContainer>
   )

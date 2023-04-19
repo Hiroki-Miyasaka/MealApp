@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories } from '../../reducers/mealSlice';
+import { fetchCategories, fetchSearchedMeal } from '../../reducers/mealSlice';
 import styled from 'styled-components';
 import CategoryCard from '../../components/Cards/CategoryCard';
+import SearchedMealCard from '../../components/Cards/SearchedMealCard';
 
 
 const HomeContainer = styled.div`
@@ -26,7 +27,7 @@ const TitleSection = styled.h1`
     margin: 1.4rem 0;
 `;
 
-const Layout = styled.div`
+const CategoriesLayout = styled.div`
     display: grid;
     width: 100%;
     margin: 0 auto;
@@ -35,20 +36,28 @@ const Layout = styled.div`
     text-align: center;
 `;
 
+const SearchLayout = styled(CategoriesLayout)`
+    gap: 5rem;
+    margin-bottom: 5rem;
+`;
+
 const SearchSection = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 3rem;
     input {
         padding: 0.5rem 3rem;
         outline: none;
         border-radius: 5px;
+        border: solid 2px #777777;
     }
 `;
 
 const Home = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.meal.categories);
+    const searchedMeal = useSelector((state) => state.meal.searchedMeal);
 
     const [ meal, setMeal ] = useState("");
 
@@ -56,7 +65,9 @@ const Home = () => {
         dispatch(fetchCategories());
     }, [dispatch]);
 
-
+    useEffect(() => {
+        dispatch(fetchSearchedMeal(meal));
+    }, [meal]);
     
 
     
@@ -72,9 +83,20 @@ const Home = () => {
                 <input type='text' placeholder='type meal name' onChange={(e) => setMeal(e.target.value)} value={meal}/>
             </form>
         </SearchSection>
+        <SearchLayout>
+            {
+                searchedMeal.length > 0 &&
+                searchedMeal.map((meal) => (
+                    <SearchedMealCard
+                        key={meal.idMeal}
+                        {...meal}
+                    />
+                ))
+            }
+        </SearchLayout>
 
         <TitleSection>Categories</TitleSection>
-        <Layout>
+        <CategoriesLayout>
             {
                 categories.length > 0 &&
                 categories.map((category) => (
@@ -84,7 +106,7 @@ const Home = () => {
                     />
                 ))
             }
-        </Layout>
+        </CategoriesLayout>
         
     </HomeContainer>
   )
