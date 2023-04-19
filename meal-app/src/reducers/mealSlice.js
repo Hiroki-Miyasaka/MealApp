@@ -31,8 +31,8 @@ export const fetchCategories = () => async (dispach) => {
         const response = await axios.get(
             import.meta.env.VITE_APP_MEAL_URL + "/categories.php"
         );
-        console.log(response);
-        dispach(setCategories(response.data));
+        console.log(response.data.categories);
+        dispach(setCategories(response.data.categories));
     } catch(error){
         // console.log(error.message);
         dispach(setError(error.message));
