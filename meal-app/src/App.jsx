@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import Category from './pages/Category/Category';
+import Meal from "./pages/Meal/Meal";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/category" element={<Category/>}/>
+          <Route path='/meal/:id' element={<Meal/>}/>
         </Routes>
       </BrowserRouter>
     </>
