@@ -24,8 +24,8 @@ const CategoryCard = ({ idCategory, strCategory, strCategoryDescription, strCate
     const [toggle, setToggle] = useState(false);
 
     const navigate = useNavigate();
-    const handleRoute = (id) => {
-        navigate(`/category/${idCategory}`);
+    const handleRoute = (strCategory) => {
+        navigate(`/category?mealcategory=${strCategory}`);
     }
 
     const handleToggle = () => {
@@ -39,7 +39,7 @@ const CategoryCard = ({ idCategory, strCategory, strCategoryDescription, strCate
         {toggle && (
             <>
                 <p>{strCategoryDescription}</p>
-                <button onClick={() => handleRoute(idCategory)}>See more</button>
+                <button onClick={() => handleRoute(strCategory)}>See more</button>
             </>
         )}
     </CategoryCardContainer>
