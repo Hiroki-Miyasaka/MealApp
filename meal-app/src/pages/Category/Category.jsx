@@ -16,11 +16,12 @@ const CategoryContainer = styled.div`
 const Layout = styled.div`
     display: grid;
     width: 100%;
-    margin: 0 auto;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 5.5rem;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 6rem;
     text-align: center;
     padding: 1rem;
+    margin-bottom: 10rem;
 `;
 
 const TitleSection = styled.h1`
