@@ -69,7 +69,9 @@ const Home = () => {
         dispatch(fetchSearchedMeal(meal));
     }, [meal]);
     
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
     
 
     
@@ -78,14 +80,15 @@ const Home = () => {
     <HomeContainer>
         <TitleSection>Search Meal</TitleSection>
         <SearchSection>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label/>
                 <input type='text' placeholder='type meal name' onChange={(e) => setMeal(e.target.value)} value={meal}/>
             </form>
         </SearchSection>
         <SearchLayout>
+            {console.log("SearchMeal" ,searchedMeal)}
             {
-                searchedMeal.length > 0 &&
+                searchedMeal &&
                 searchedMeal.map((meal) => (
                     <SearchedMealCard
                         key={meal.idMeal}
