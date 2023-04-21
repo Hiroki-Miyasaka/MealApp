@@ -58,6 +58,24 @@ const IngredientsContainer = styled.div`
   }
 `;
 
+const SourceContainer = styled.div`
+  margin-top: 7rem;
+  a{
+    color: #242424;
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+    &:hover{
+      box-shadow: none;
+      transform: translate3d(0, 5px, 0);
+      transition-duration: 0.3s;
+      opacity: 0.8;
+    }
+  }
+`;
+
 
 const Meal = () => {
   const [meal, setMeal] = useState([]);
@@ -67,7 +85,7 @@ const Meal = () => {
     axios.get(import.meta.env.VITE_APP_MEAL_URL + `${id}`)
     .then((res) => {
       setMeal(res.data.meals[0]);
-      console.log(res.data.meals[0]);
+      // console.log(res.data.meals[0]);
     })
     .catch((err) => {
       console.log(err);
@@ -109,6 +127,12 @@ const Meal = () => {
             ))
           }
         </IngredientsContainer>
+        <SourceContainer>
+          {
+            meal.strSource &&
+            <a href={meal.strSource} target='_blank'><b>Source</b></a>
+          }
+        </SourceContainer>
       </InformationContainer>
     </MealContainer>
   )
