@@ -32,7 +32,7 @@ const Line = styled.div`
   margin: 3rem 0;
 `;
 
-const Information = styled.div`
+const InformationContainer = styled.div`
   text-align: center;
   h2{
     font-size: 2rem;
@@ -40,12 +40,21 @@ const Information = styled.div`
   }
 `;
 
-const Instraction = styled.div`
+const InstractionContainer = styled.div`
   margin-top: 3rem;
   text-align: left;
   p{
     text-align:left;
     text-indent: 1rem;
+  }
+`;
+
+const IngredientsContainer = styled.div`
+  margin-top: 3rem;
+  text-align: left;
+  p{
+    display: inline;
+    margin: 0 0.5rem;
   }
 `;
 
@@ -58,12 +67,24 @@ const Meal = () => {
     axios.get(import.meta.env.VITE_APP_MEAL_URL + `${id}`)
     .then((res) => {
       setMeal(res.data.meals[0]);
-      // console.log(res.data.meals);
+      console.log(res.data.meals[0]);
     })
     .catch((err) => {
       console.log(err);
     });
   }, [id]);
+
+  const getIngredients = (data) => {
+    const ingredients = [];
+    for(const key in data){
+      if(key.startsWith("strIngredient") && data[key] !== ""){
+        // console.log(data[key]);
+        ingredients.push(data[key]);
+      }
+    }
+    // console.log("ingredients" ,ingredients);
+    return ingredients;
+  }
 
   return (
     <MealContainer>
@@ -72,15 +93,23 @@ const Meal = () => {
         <img src={meal.strMealThumb} alt={meal.strMeal + "-image"}/>
       </MealImageContainer>
       <Line></Line>
-      <Information>
+      <InformationContainer>
         <h2>Meal Information</h2>
         <h3>Area: {meal.strArea}</h3>
         <h3>Category: {meal.strCategory}</h3>
-        <Instraction>
+        <InstractionContainer>
           <h3>Instraction</h3>
           <p>{meal.strInstructions}</p>
-        </Instraction>
-      </Information>
+        </InstractionContainer>
+        <IngredientsContainer>
+          <h3>Ingredients</h3>
+          {
+            getIngredients(meal).map((ingredient, index) => (
+              <p key={index}>{ingredient}</p>
+            ))
+          }
+        </IngredientsContainer>
+      </InformationContainer>
     </MealContainer>
   )
 }
