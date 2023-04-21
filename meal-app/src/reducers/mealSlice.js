@@ -51,7 +51,7 @@ export const fetchSearchedMeal = (mealName) => async (dispach) => {
         const response = await axios.get(
             import.meta.env.VITE_APP_SEARCHED_MEAL_URL + `${mealName}`
         );
-        console.log(response.data.meals);
+        // console.log(response.data.meals);
         dispach(setSearchedMeal(response.data.meals));
     } catch(error){
         console.log(error.message);

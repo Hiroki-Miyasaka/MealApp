@@ -86,7 +86,6 @@ const Home = () => {
             </form>
         </SearchSection>
         <SearchLayout>
-            {console.log("SearchMeal" ,searchedMeal)}
             {
                 searchedMeal &&
                 searchedMeal.map((meal) => (
