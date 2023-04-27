@@ -90,7 +90,7 @@ const Register = () => {
                 <input onChange={handleChanges} type='password' name='password' id='password' placeholder='password'/>
             </FormController>
 
-            <button>Register</button>
+            <button type='submit'>Register</button>
         </form>
     </RegisterContainer>
   )

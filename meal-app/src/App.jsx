@@ -6,6 +6,7 @@ import Category from './pages/Category/Category';
 import Meal from "./pages/Meal/Meal";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
+import Profile from './pages/Profile/Profile';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register/>}/>
+          <Route path='/profile' element={<Profile/>}/>
           <Route path="/category" element={<Category/>}/>
           <Route path='/meal/:id' element={<Meal/>}/>
         </Routes>
