@@ -14,7 +14,7 @@ const userSlice = createSlice({
     reducers: {
         setUser(state, action){
             state.user = action.payload;
-            state.isLoading = true;
+            state.isLoggedIn = true;
         },
         setLoading(state, action){
             state.isLoading = action.payload;
@@ -56,6 +56,29 @@ export const register = (userData) => async dispatch => {
     } catch(error){
         dispatch(setError(error.responce.data.message));
         // console.log(error.responce.data.message);
+    } finally{
+        dispatch(setLoading(false));
+    }
+};
+
+export const logout = () => async dispatch => {
+    try {
+        dispatch(resetState());
+        delete axios.defaults.headers.common["Authorization"];
+    } catch(error){
+        console.log(error);
+    }
+};
+
+export const getMe = () => async dispatch => {
+    try{
+        dispatch(setLoading(true));
+        const responce = await axios.get(import.meta.env.VITE_APP_URL + "/me");
+        dispatch(setUser(responce.data));
+        console.log(responce.data);
+    } catch(error){
+        dispatch(setError(error.responce.data.message));
+        console.log(error);
     } finally{
         dispatch(setLoading(false));
     }

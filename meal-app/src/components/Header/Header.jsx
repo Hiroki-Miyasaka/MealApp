@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../reducers/userSlice';
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -22,22 +24,43 @@ const HeaderContainer = styled.div`
 
 
 const Header = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const user = useSelector((state) => state.user.user);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/login");
+    }
+
     return(
         <HeaderContainer>
-            <h1>Logo</h1>
+            <h1 onClick={() => navigate("/")}>Logo</h1>
             <ul>
                 <li>
                     <Link to={"/"}>Home</Link>
                 </li>
-                <li>
-                    <Link to={"/login"}>Login</Link>
-                </li>
-                <li>
-                    <Link to={"/register"}>Register</Link>
-                </li>
-                {/* <li>
-                    <Link to={"/profile"}>Profile</Link>
-                </li> */}
+                {
+                    isLoggedIn ? (
+                        <>
+                            <li>
+                                <Link to={"/profile"} >{user && user.user.fullName}</Link>
+                            </li>
+                            <button onClick={handleLogout} >Logout</button>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <Link to={"/login"}>Login</Link>
+                            </li>
+                            <li>
+                                <Link to={"/register"}>Register</Link>
+                            </li>
+                        </>
+                    )
+                }
+                
             </ul>
         </HeaderContainer>
     )
