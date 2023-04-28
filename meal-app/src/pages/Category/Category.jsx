@@ -40,7 +40,13 @@ const Category = () => {
     const [meals, setMeals] = useState([]);
     
     useEffect(() => {
-        axios.get(import.meta.env.VITE_APP_FILTER_BY_CATEGORY_URL + `${categoryName}`)
+        axios.get(import.meta.env.VITE_APP_FILTER_BY_CATEGORY_URL + `${categoryName}`,
+        {
+            headers:{
+                "Authorization":null
+            }
+        }
+        )
         .then((res) => {
             setMeals(res.data.meals);
             // console.log(res.data.meals);

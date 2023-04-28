@@ -33,7 +33,12 @@ export const fetchCategories = () => async (dispach) => {
     try{
         dispach(setLoading(true));
         const response = await axios.get(
-            import.meta.env.VITE_APP_CATEGORIES_URL + "/categories.php"
+            import.meta.env.VITE_APP_CATEGORIES_URL + "/categories.php",
+            {
+                headers:{
+                    "Authorization":null
+                }
+            }
         );
         // console.log(response.data.categories);
         dispach(setCategories(response.data.categories));
@@ -49,7 +54,12 @@ export const fetchSearchedMeal = (mealName) => async (dispach) => {
     try{
         dispach(setLoading(true));
         const response = await axios.get(
-            import.meta.env.VITE_APP_SEARCHED_MEAL_URL + `${mealName}`
+            import.meta.env.VITE_APP_SEARCHED_MEAL_URL + `${mealName}`,
+            {
+                headers:{
+                    "Authorization":null
+                }
+            }
         );
         // console.log(response.data.meals);
         dispach(setSearchedMeal(response.data.meals));

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from "../../reducers/userSlice";
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled.div`
@@ -47,12 +46,17 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const error = useSelector((state) => state.user.error);
+
     const dispatch = useDispatch();
 
     const handleLogin = (e) => {
         e.preventDefault();
         if(email && password){
             dispatch(login({email, password}));
+            if(error){
+                return;
+            }
             navigate("/profile");
         }
     }

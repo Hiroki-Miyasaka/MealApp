@@ -82,7 +82,13 @@ const Meal = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_APP_MEAL_URL + `${id}`)
+    axios.get(import.meta.env.VITE_APP_MEAL_URL + `${id}`,
+    {
+      headers:{
+          "Authorization":null
+      }
+    }
+    )
     .then((res) => {
       setMeal(res.data.meals[0]);
       // console.log(res.data.meals[0]);

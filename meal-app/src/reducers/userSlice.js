@@ -53,9 +53,10 @@ export const register = (userData) => async dispatch => {
     try{
         dispatch(setLoading(true));
         await axios.post(import.meta.env.VITE_APP_URL + "/api/auth/register", userData);
+        // console.log("userSlice Success register");
     } catch(error){
         dispatch(setError(error.responce.data.message));
-        // console.log(error.responce.data.message);
+        // console.log("userSlice", error);
     } finally{
         dispatch(setLoading(false));
     }
@@ -78,7 +79,7 @@ export const getMe = () => async dispatch => {
         console.log(responce.data);
     } catch(error){
         dispatch(setError(error.responce.data.message));
-        console.log(error);
+        console.log(error.responce.data.message);
     } finally{
         dispatch(setLoading(false));
     }
