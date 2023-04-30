@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+
+
+const ProfileContainer = styled.div`
+  
+`;
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <ProfileContainer>
+      
+    </ProfileContainer>
   )
 }
 

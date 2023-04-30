@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineStar } from "react-icons/ai";
+import { useSelector, useDispatch } from 'react-redux';
+import axios from "axios";
 
 const SearchedMealCardContainer = styled.div`
     position: relative;
@@ -29,20 +31,43 @@ const FavButton = styled.button`
     position: absolute;
     top: 7px;
     left: 8px;
-    color: #fff;;
-    background-color: rgba(0, 0, 0, 0);
-    border: 1px solid #fff;
+    color: #fff;
+    background-color: #242424;
+    border: 2px solid #fff;
     border-radius: 3px;
     cursor: pointer;
-    padding: 3px
+    padding: 3px;
 `;
 
 
 const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
+    const [ isFavorites, setIsFavorites ] = useState(localStorage.getItem("favMeals") || []);
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+    useEffect(() => {
+        if(localStorage.getItem("favMeals")){
+            setIsFavorites(JSON.parse(localStorage.getItem("favMeals")));
+        }
+    }, []);
+
     const navigate = useNavigate();
+
     const handleRoute = (idMeal) => {
         navigate(`/meal/${idMeal}`);
     }
+
+    const setFavoriteMeal = async (idMeal) => {
+        const newFavMealData = {
+            idMeal,
+            strMeal,
+            strMealThumb
+        }
+        console.log(isFavorites);
+        await axios.post(import.meta.env.VITE_APP_URL + "/api/favMeal", newFavMealData);
+        alert("Meal added to favorites");
+        localStorage.setItem("favMeals", JSON.stringify([...isFavorites, idMeal]));
+        setIsFavorites([...isFavorites, idMeal]);
+    };
 
   return (
     <SearchedMealCardContainer>
@@ -51,11 +76,13 @@ const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
         <ButtonAction>
             <button onClick={() => handleRoute(idMeal)}>Show more</button>
         </ButtonAction>
-        <FavButton>
-            <AiOutlineStar size={20}/>
-        </FavButton>
+        {isLoggedIn && !isFavorites.includes(idMeal) && 
+            <FavButton onClick={() => setFavoriteMeal(idMeal)}>
+                <AiOutlineStar size={20}/>
+            </FavButton>
+        }
     </SearchedMealCardContainer>
   )
 }
 
-export default SearchedMealCard
+export default SearchedMealCard;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../reducers/userSlice";
@@ -44,8 +44,11 @@ const FormController = styled.div`
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const error = useSelector((state) => state.user.error);
+    
+    useEffect(() => {
+        console.log(error);
+    }, [error])
 
     const [ user, setUser ] = useState({
         userName: "",
@@ -68,7 +71,7 @@ const Register = () => {
             return;
         }
         dispatch(register(user));
-        console.log(error);
+        
         if(error){
             return;
         }
