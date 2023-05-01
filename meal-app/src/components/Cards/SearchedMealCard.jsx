@@ -62,7 +62,7 @@ const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
             strMeal,
             strMealThumb
         }
-        console.log(isFavorites);
+        // console.log(isFavorites);
         await axios.post(import.meta.env.VITE_APP_URL + "/api/favMeal", newFavMealData);
         alert("Meal added to favorites");
         localStorage.setItem("favMeals", JSON.stringify([...isFavorites, idMeal]));
