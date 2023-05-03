@@ -37,6 +37,8 @@ const Header = () => {
 
     return(
         <HeaderContainer>
+            {/* {console.log("header isLoggedIn",isLoggedIn)}
+            {console.log("header user",user)} */}
             <h1 onClick={() => navigate("/")}>Logo</h1>
             <ul>
                 <li>
@@ -46,7 +48,7 @@ const Header = () => {
                     isLoggedIn ? (
                         <>
                             <li>
-                                <Link to={"/profile"} >{user && user.user.fullName}</Link>
+                                <Link to={"/profile"} >{user && user.userName}</Link>
                             </li>
                             <button onClick={handleLogout} >Logout</button>
                         </>

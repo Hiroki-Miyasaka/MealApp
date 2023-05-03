@@ -41,14 +41,15 @@ const FavButton = styled.button`
 
 
 const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
-    const [ isFavorites, setIsFavorites ] = useState(localStorage.getItem("favMeals") || []);
+    const user = useSelector((state) => state.user.user);
+    const [ isFavorites, setIsFavorites ] = useState(JSON.parse(localStorage.getItem(`${user.userName}-favMeal`)) || []);
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-
-    useEffect(() => {
-        if(localStorage.getItem("favMeals")){
-            setIsFavorites(JSON.parse(localStorage.getItem("favMeals")));
-        }
-    }, []);
+    
+    // useEffect(() => {
+    //     if(localStorage.getItem(`${user.userName}-favMeal`)){
+    //         setIsFavorites(JSON.parse(localStorage.getItem(`${user.userName}-favMeal`)));
+    //     }
+    // }, []);
 
     const navigate = useNavigate();
 
@@ -62,12 +63,32 @@ const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
             strMeal,
             strMealThumb
         }
-        // console.log(isFavorites);
+        
+
         await axios.post(import.meta.env.VITE_APP_URL + "/api/favMeal", newFavMealData);
-        alert("Meal added to favorites");
-        localStorage.setItem("favMeals", JSON.stringify([...isFavorites, idMeal]));
-        setIsFavorites([...isFavorites, idMeal]);
+        setIsFavorites((prevFavorites) => [...prevFavorites, idMeal]);
+        // alert("Meal added to favorites");
+        // console.log(isFavorites);
+
+        // localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify([...isFavorites, idMeal]));
+
+        // let isFavs = JSON.parse(localStorage.getItem(`${user.userName}-favMeal`));
+        // console.log("isFavs",isFavs);
+        // if(isFavs != true){
+        //     localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify([idMeal]));
+        // } else{
+        //     localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify([...isFavs, idMeal]));
+        // }
+
+        // localStorage.setItem("favMeals", JSON.stringify([...isFavs, idMeal]));
+
+        // setIsFavorites((prev) => ([...prev, idMeal]));
+        // console.log(isFavorites);
     };
+
+    useEffect(() => {
+        localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify(isFavorites));
+      }, [isFavorites, user.userName]);
 
   return (
     <SearchedMealCardContainer>

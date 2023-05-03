@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from "../../reducers/userSlice";
+// import { login } from "../../reducers/userSlice";
 import { useNavigate } from 'react-router-dom';
+import { setUser, setLoggedIn, setLoading, setError } from "../../reducers/userSlice.js";
+import axios from 'axios';
 
 const LoginContainer = styled.div`
     padding: 1rem 2rem;
@@ -50,14 +52,37 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        if(email && password){
-            dispatch(login({email, password}));
-            if(error){
-                return;
-            }
-            navigate("/profile");
+    // const handleLogin = (e) => {
+    //     e.preventDefault();
+    //     if(email && password){
+    //         dispatch(login({email, password}));
+    //         if(error){
+    //             return;
+    //         }
+    //         navigate("/profile");
+    //     }
+    // }
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try{
+            setLoading(true);
+            await axios.post(import.meta.env.VITE_APP_URL + "/api/auth/login", {email, password})
+            .then((res) => {
+                axios.defaults.headers.common["Authorization"] = res.data.token;
+                console.log(res.data.user);
+                dispatch(setUser(res.data.user));
+                dispatch(setLoggedIn(true));
+                navigate("/profile");
+            }).catch((error) => {
+                console.log(error.response.data.message);
+                dispatch(setError(error.response.data.message));
+                dispatch(setLoading(false));
+            })
+            
+        } catch(error){
+            console.log(error);
+            dispatch(setError(error));
         }
     }
 
