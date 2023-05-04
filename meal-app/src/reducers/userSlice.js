@@ -84,7 +84,7 @@ export const getMe = () => async dispatch => {
         // dispatch(setLoggedIn(true));
         const responce = await axios.get(import.meta.env.VITE_APP_URL + "/me");
         dispatch(setUser(responce.data.user));
-        console.log("getMe",responce.data.user);
+        // console.log("getMe",responce.data.user);
     } catch(error){
         dispatch(setError(error.responce.data.message));
         console.log(error.responce.data.message);

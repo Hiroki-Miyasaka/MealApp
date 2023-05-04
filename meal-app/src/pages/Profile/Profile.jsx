@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMe } from '../../reducers/userSlice.js';
 import axios from 'axios';
+import SearchedMealCard from '../../components/Cards/SearchedMealCard.jsx';
 
 const ProfileContainer = styled.div`
   padding: 1rem 2rem;
@@ -35,7 +36,6 @@ const Profile = () => {
       dispatch(getMe());
     }
 
-    console.log(user);
   }, [dispatch]);
 
   
@@ -43,9 +43,14 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      {console.log("Profile",isLoggedIn)}
+      {/* {console.log("Profile",isLoggedIn)}
+      {console.log("userFavMeals", user.favMeals)} */}
       <h1>{user && user.userName}</h1>
-      
+      {/* {
+        user && user.favMeals.map((meal) => (
+          <SearchedMealCard key={meal.idMeal} {...meal} callback={setFavoriteMeal} favorites={favorites} onDelete={deleteFavoriteMeal} />
+        ))
+      } */}
       
     </ProfileContainer>
   )
