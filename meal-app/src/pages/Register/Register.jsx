@@ -49,9 +49,9 @@ const Register = () => {
   const navigate = useNavigate();
   const error = useSelector((state) => state.user.error);
 
-  useEffect(() => {
-    console.log("register error",error);
-  }, [error]);
+//   useEffect(() => {
+//     console.log("register error",error);
+//   }, [error]);
 
   const [user, setUser] = useState({
     userName: "",
