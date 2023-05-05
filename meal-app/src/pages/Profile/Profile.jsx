@@ -14,6 +14,7 @@ const ProfileContainer = styled.div`
   align-items: center;
   h1 {
     text-align: start;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -25,6 +26,15 @@ const FavoriteMealsLayout = styled.div`
   gap: 1.5rem;
   text-align: center;
 `;
+
+const TitleSection = styled.h1`
+  width: 100%;
+  font-size: 3rem;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 1rem;
+  margin: 1.4rem 0;
+`;
+
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -43,14 +53,17 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      {/* {console.log("Profile",isLoggedIn)}
-      {console.log("userFavMeals", user.favMeals)} */}
+      {console.log("Profile",isLoggedIn)}
+      {console.log("userFavMeals", user.favMeals)}
       <h1>{user && user.userName}</h1>
-      {/* {
-        user && user.favMeals.map((meal) => (
-          <SearchedMealCard key={meal.idMeal} {...meal} callback={setFavoriteMeal} favorites={favorites} onDelete={deleteFavoriteMeal} />
-        ))
-      } */}
+      <TitleSection>Favorite meals</TitleSection>
+      <FavoriteMealsLayout>
+        {
+          user && user.favMeals.map((meal) => (
+            <SearchedMealCard key={meal.idMeal} {...meal} />
+          ))
+        }
+      </FavoriteMealsLayout>
       
     </ProfileContainer>
   )
