@@ -74,22 +74,22 @@ const Home = () => {
     e.preventDefault();
   };
 
-  const setFavoriteMeal = async (idMeal) => {
-    setFavorites([...favorites, idMeal]);
+//   const setFavoriteMeal = async (idMeal) => {
+//     setFavorites([...favorites, idMeal]);
 
-    localStorage.setItem(
-        `${user.userName}-favMeal`,
-        JSON.stringify([...favorites, idMeal])
-    );
-  };
+//     localStorage.setItem(
+//         `${user.userName}-favMeal`,
+//         JSON.stringify([...favorites, idMeal])
+//     );
+//   };
 
-  const deleteFavoriteMeal = async (idMeal) => {
-    const newFavorites = favorites.filter((favorite) => favorite !== idMeal);
-    setFavorites(newFavorites);
-    const favoritesInLocalStorage = JSON.parse(localStorage.getItem(`${user.userName}-favMeal`));
-    const newFavoritesInLocalStorage = favoritesInLocalStorage.filter((favorite) => favorite !== idMeal);
-    localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify(newFavoritesInLocalStorage));
-  }
+//   const deleteFavoriteMeal = async (idMeal) => {
+//     const newFavorites = favorites.filter((favorite) => favorite !== idMeal);
+//     setFavorites(newFavorites);
+//     const favoritesInLocalStorage = JSON.parse(localStorage.getItem(`${user.userName}-favMeal`));
+//     const newFavoritesInLocalStorage = favoritesInLocalStorage.filter((favorite) => favorite !== idMeal);
+//     localStorage.setItem(`${user.userName}-favMeal`, JSON.stringify(newFavoritesInLocalStorage));
+//   }
 
   return (
     <HomeContainer>
@@ -108,7 +108,8 @@ const Home = () => {
       <SearchLayout>
         {searchedMeal &&
           searchedMeal.map((meal) => (
-            <SearchedMealCard key={meal.idMeal} {...meal} callback={setFavoriteMeal} favorites={favorites} onDelete={deleteFavoriteMeal} />
+            <SearchedMealCard key={meal.idMeal} {...meal} />
+            // <SearchedMealCard key={meal.idMeal} {...meal} callback={setFavoriteMeal} favorites={favorites} onDelete={deleteFavoriteMeal} />
           ))}
       </SearchLayout>
 

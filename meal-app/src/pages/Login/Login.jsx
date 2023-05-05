@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { login } from "../../reducers/userSlice";
 import { useNavigate } from 'react-router-dom';
 import { setUser, setLoggedIn, setLoading, setError } from "../../reducers/userSlice.js";
+import { loadFavorites } from "../../reducers/favoriteSlice.js";
 import axios from 'axios';
 
 const LoginContainer = styled.div`
@@ -72,6 +73,10 @@ const Login = () => {
                 axios.defaults.headers.common["Authorization"] = res.data.token;
                 console.log(res.data.user);
                 dispatch(setUser(res.data.user));
+                if(res.data.user.favMeals.length > 0){
+                    console.log("loaded", res.data.user.favMeals);
+                    dispatch(loadFavorites(res.data.user.favMeals));
+                }
                 dispatch(setLoggedIn(true));
                 navigate("/profile");
             }).catch((error) => {

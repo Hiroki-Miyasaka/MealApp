@@ -31,7 +31,7 @@ const Header = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        // localStorage.removeItem("favMeals");
+        localStorage.removeItem("favorite-Meals");
         navigate("/login");
     }
 

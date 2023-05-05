@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import { addNewFavorite, removeFavorite } from "../../reducers/favoriteSlice.js";
 import axios from "axios";
 
 const SearchedMealCardContainer = styled.div`
@@ -39,35 +40,52 @@ const FavButton = styled.button`
   padding: 3px;
 `;
 
-const SearchedMealCard = ({ idMeal, strMeal, strMealThumb, callback, favorites, onDelete }) => {
-  const user = useSelector((state) => state.user.user);
+const SearchedMealCard = ({ idMeal, strMeal, strMealThumb }) => {
+//   const user = useSelector((state) => state.user.user);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const favorites = useSelector((state) => state.favorite.favorites);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleRoute = (idMeal) => {
     navigate(`/meal/${idMeal}`);
   };
 
-  const setFavoriteMeal = async (idMeal) => {
-    console.log("call setFavoriteMeal");
+//   const setFavoriteMeal = async (idMeal) => {
+//     console.log("call setFavoriteMeal");
+//     const newFavMealData = {
+//       idMeal,
+//       strMeal,
+//       strMealThumb,
+//     };
+
+//     callback(idMeal);
+
+//     await axios.post(
+//       import.meta.env.VITE_APP_URL + "/api/favMeal", newFavMealData);
+//   };
+
+  const addFavoriteMeal = () => {
+    console.log("call addFavoriteMeal");
     const newFavMealData = {
-      idMeal,
-      strMeal,
-      strMealThumb,
+        idMeal,
+        strMeal,
+        strMealThumb
     };
-
-    callback(idMeal);
-
-    await axios.post(
-      import.meta.env.VITE_APP_URL + "/api/favMeal", newFavMealData);
+    dispatch(addNewFavorite(newFavMealData));
   };
-
-  const deleteFavoriteMeal = async (idMeal) => {
+  
+  const deleteFavoriteMeal = (idMeal) => {
     console.log("call deleteFavoriteMeal", idMeal);
-    onDelete(idMeal);
-    console.log({idMeal});
-    await axios.delete(import.meta.env.VITE_APP_URL + "/api/favMeal", { data: { idMeal } });
+    dispatch(removeFavorite(idMeal));
   }
+
+//   const deleteFavoriteMeal = async (idMeal) => {
+//     console.log("call deleteFavoriteMeal", idMeal);
+//     onDelete(idMeal);
+//     console.log({idMeal});
+//     await axios.delete(import.meta.env.VITE_APP_URL + "/api/favMeal", { data: { idMeal } });
+//   }
 
   return (
     <SearchedMealCardContainer>
@@ -76,8 +94,8 @@ const SearchedMealCard = ({ idMeal, strMeal, strMealThumb, callback, favorites, 
       <ButtonAction>
         <button onClick={() => handleRoute(idMeal)}>Show more</button>
       </ButtonAction>
-      {(isLoggedIn && !favorites.includes(idMeal)) ? (
-        <FavButton onClick={() => setFavoriteMeal(idMeal)}>
+      {(isLoggedIn && !favorites.map((favorite) => favorite.idMeal).includes(idMeal)) ? (
+        <FavButton onClick={addFavoriteMeal}>
           <AiOutlineStar size={20} />
         </FavButton>
       ) : 
