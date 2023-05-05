@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../reducers/userSlice';
+import { GiMeal } from "react-icons/gi";
 
 const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
-    h1{
+    .logo{
         margin-right: auto;
+        cursor: pointer;
     }
     ul{
         list-style: none;
@@ -37,9 +39,11 @@ const Header = () => {
 
     return(
         <HeaderContainer>
-            {/* {console.log("header isLoggedIn",isLoggedIn)}
-            {console.log("header user",user)} */}
-            <h1 onClick={() => navigate("/")}>Logo</h1>
+            {/* <h1 onClick={() => navigate("/")}>Logo</h1> */}
+            <div className='logo'>
+                <GiMeal size={70} onClick={() => navigate("/")} />
+            </div>
+            
             <ul>
                 <li>
                     <Link to={"/"}>Home</Link>
