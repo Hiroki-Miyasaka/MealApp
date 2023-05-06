@@ -56,7 +56,7 @@ const Profile = () => {
       {console.log("Profile",isLoggedIn)}
       {console.log("userFavMeals", user.favMeals)}
       <h1>{user && user.userName}</h1>
-      <TitleSection>Favorite meals</TitleSection>
+      <TitleSection>Your favorite meals</TitleSection>
       <FavoriteMealsLayout>
         {
           user && user.favMeals.map((meal) => (
