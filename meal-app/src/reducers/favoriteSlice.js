@@ -52,9 +52,7 @@ export const removeFavorite = ( idMeal ) => async ( dispatch, getState ) => {
 };
 
 export const loadFavorites = ( arrMealData ) => async dispatch => {
-    // console.log(arrMealData);
     dispatch(setFavorites(arrMealData));
-    // console.log("load Success");
 };
 
 export default favoriteSlice.reducer;
