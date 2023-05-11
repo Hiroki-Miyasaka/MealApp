@@ -14,7 +14,6 @@ const userSlice = createSlice({
     reducers: {
         setUser(state, action){
             state.user = action.payload;
-            // state.isLoggedIn = true;
         },
         setLoggedIn(state, action){
             state.isLoggedIn = action.payload;
@@ -81,10 +80,8 @@ export const logout = () => async dispatch => {
 export const getMe = () => async dispatch => {
     try{
         dispatch(setLoading(true));
-        // dispatch(setLoggedIn(true));
         const responce = await axios.get(import.meta.env.VITE_APP_URL + "/me");
         dispatch(setUser(responce.data.user));
-        // console.log("getMe",responce.data.user);
     } catch(error){
         dispatch(setError(error.responce.data.message));
         console.log(error.responce.data.message);
