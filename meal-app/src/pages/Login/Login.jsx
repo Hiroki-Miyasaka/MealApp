@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-// import { login } from "../../reducers/userSlice";
 import { useNavigate } from 'react-router-dom';
 import { setUser, setLoggedIn, setLoading, setError } from "../../reducers/userSlice.js";
 import { loadFavorites } from "../../reducers/favoriteSlice.js";
@@ -74,7 +73,7 @@ const Login = () => {
                 console.log(res.data.user);
                 dispatch(setUser(res.data.user));
                 if(res.data.user.favMeals.length > 0){
-                    console.log("loaded", res.data.user.favMeals);
+                    // console.log("loaded", res.data.user.favMeals);
                     dispatch(loadFavorites(res.data.user.favMeals));
                 }
                 dispatch(setLoggedIn(true));
