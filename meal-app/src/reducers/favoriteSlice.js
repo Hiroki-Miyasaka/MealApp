@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    favorites: [],
-    // isLoading: false,
-    // error: null
+    favorites: []
 };
 
 const favoriteSlice = createSlice({
