@@ -70,6 +70,7 @@ const Register = () => {
 
   const handleRegisterFunction = async (event) => {
     event.preventDefault();
+    console.log("app url register line73" ,import.meta.env.VITE_APP_URL);
     try {
         dispatch(setLoading(true));
         await axios.post(import.meta.env.VITE_APP_URL + "/api/auth/register", user)
